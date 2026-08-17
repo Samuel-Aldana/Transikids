@@ -1,0 +1,36 @@
+{
+   "checksum": "15f0d793ae7d07b2f9427a93d8725829",
+   "roots": {
+      "bookmark_bar": {
+         "children": [  ],
+         "date_added": "13431296108477381",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "0bc5d13f-2cba-5d74-951f-3f233fe6c908",
+         "id": "1",
+         "name": "Barra de marcadores",
+         "type": "folder"
+      },
+      "other": {
+         "children": [  ],
+         "date_added": "13431296108477381",
+         "date_last_used": "0",
+         "date_modified": "13431299420402193",
+         "guid": "82b081ec-3dd3-529c-8475-ab6c344590dd",
+         "id": "2",
+         "name": "Otros marcadores",
+         "type": "folder"
+      },
+      "synced": {
+         "children": [  ],
+         "date_added": "13431296108477381",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "4cf2e351-0e85-532b-bb37-df045d8f8d0f",
+         "id": "3",
+         "name": "Marcadores de móvil",
+         "type": "folder"
+      }
+   },
+   "version": 1
+}
