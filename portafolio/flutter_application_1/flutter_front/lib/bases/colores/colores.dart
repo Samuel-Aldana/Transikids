@@ -1,0 +1,11 @@
+import 'package:flutter/material.dart';
+class AppColors {
+  static const Color base = Color(0xFFFFFFFF);
+  static const Color boton1 = Color(0xFF005BBf);
+  static const Color datos = Color(0xFFBEC5D5);
+  static const Color codigo = Color(0xFF58C03D);
+  static const Color letramensajes = Color(0xFF414754);
+  static const Color botondatos = Color(0xFFC1C6D6);
+  static const Color letracampo = Color(0xFFF1F4FA);
+  static const Color negro = Color.fromARGB(255, 0, 0, 0);
+  }
