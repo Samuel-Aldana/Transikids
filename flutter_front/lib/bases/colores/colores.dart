@@ -7,5 +7,8 @@ class AppColors {
   static const Color letramensajes = Color(0xFF414754);
   static const Color botondatos = Color(0xFFC1C6D6);
   static const Color letracampo = Color(0xFFF1F4FA);
-  static const Color negro = Color.fromARGB(255, 0, 0, 0);
+  static const Color negro = Color(0xFF000000);
+  static const Color ruta= Color(0xFF181C20);
+  static const Color camino= Color(0xFF006E2C);
+  static const Color btncamino=Color(0xFFe6f1ea);
   }

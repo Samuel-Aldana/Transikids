@@ -39,7 +39,7 @@ class TextStyles {
     fontWeight: FontWeight.normal,
   );
    static final TextStyle quickRegularpe = GoogleFonts.quicksand(
-    fontSize: 14.4,
+    fontSize: 16,
     fontWeight: FontWeight.normal,
   );
   static final TextStyle quickRegularcambiante = GoogleFonts.quicksand(
@@ -47,5 +47,8 @@ class TextStyles {
     fontSize: 13,
     fontWeight: FontWeight.normal,
      );
+  static final TextStyle montSereg = GoogleFonts.montserrat(
+    fontSize: 12,
+  );
 
 }
