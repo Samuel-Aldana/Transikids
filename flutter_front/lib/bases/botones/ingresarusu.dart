@@ -2,14 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/bases/colores/colores.dart';
 import 'package:flutter_application_1/bases/estilotexto/estilos.dart';
 
-class Usuario extends StatefulWidget {
-  const Usuario({super.key});
+class Usuario extends StatelessWidget {
+  final TextEditingController controller;
 
-  @override
-  State<Usuario> createState() => _UsuarioState();
-}
+  const Usuario({super.key, required this.controller});
 
-class _UsuarioState extends State<Usuario> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -17,32 +14,24 @@ class _UsuarioState extends State<Usuario> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "Cédula de ciudadanía",
-            style: TextStyles.montSemiBolde,
-          ),
-
+          Text("Cédula de ciudadanía", style: TextStyles.montSemiBolde),
           const SizedBox(height: 5),
-
           Material(
             elevation: 5,
             borderRadius: BorderRadius.circular(10),
             child: TextField(
-              keyboardType: TextInputType.number,
+              controller: controller,
+              keyboardType: TextInputType.text,
               decoration: InputDecoration(
-                hintText: "0000000000",
-
+                hintText: "Ingrese su usuario",
                 hintStyle: TextStyles.quickRegularcambiante,
-
                 prefixIcon: const Icon(
                   Icons.person_outline,
                   color: AppColors.negro,
                   size: 20,
                 ),
-
                 filled: true,
                 fillColor: AppColors.letracampo,
-
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                   borderSide: BorderSide.none,

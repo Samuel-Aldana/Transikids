@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/bases/colores/colores.dart';
 import 'package:flutter_application_1/bases/estilotexto/estilos.dart';
-import 'package:flutter_application_1/pantallas/datos.dart';
 
 class Iniciars extends StatefulWidget {
-  const Iniciars({super.key});
+  final String texto;
+  final VoidCallback funcion;
+
+  const Iniciars({
+    super.key,
+    required this.texto,
+    required this.funcion,
+  });
 
   @override
   State<Iniciars> createState() => _IniciarsState();
@@ -24,19 +30,23 @@ class _IniciarsState extends State<Iniciars> {
             borderRadius: BorderRadius.circular(30),
           ),
         ),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const Datos()),
-          );
-        },
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(Icons.arrow_forward, color: AppColors.base),
-            const SizedBox(width: 10),
-            Text("Iniciar sesión", style: TextStyles.montSemiBolde),
-          ],
+        onPressed: widget.funcion,
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(
+                Icons.arrow_forward,
+                color: AppColors.base,
+              ),
+              const SizedBox(width: 10),
+              Text(
+                widget.texto,
+                style: TextStyles.montSemiBolde,
+              ),
+            ],
+          ),
         ),
       ),
     );
