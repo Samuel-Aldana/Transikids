@@ -13,5 +13,5 @@ class AppColors {
   static const Color negro = Color(0xFF000000);
   static const Color ruta = Color(0xFF181C20);
   static const Color camino = Color(0xFF006E2C);
-  static const Color btncamino = Color(0xFFe6f1ea);
+  static const Color btncamino = Color(0xFFE6F1EA);
 }

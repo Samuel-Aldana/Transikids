@@ -3,7 +3,9 @@ import 'package:flutter_application_1/bases/colores/colores.dart';
 import 'package:flutter_application_1/bases/estilotexto/estilos.dart';
 
 class Contrase extends StatefulWidget {
-  const Contrase({super.key});
+  final TextEditingController controller;
+
+  const Contrase({super.key, required this.controller});
 
   @override
   State<Contrase> createState() => _ContraseState();
@@ -19,35 +21,26 @@ class _ContraseState extends State<Contrase> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "Contraseña",
-            style: TextStyles.montSemiBolde,
-          ),
-
+          Text("Contraseña", style: TextStyles.montSemiBolde),
           const SizedBox(height: 5),
-
           Material(
             elevation: 5,
             borderRadius: BorderRadius.circular(10),
             child: TextField(
+              controller: widget.controller,
               obscureText: ocultar,
               obscuringCharacter: '*',
-
               decoration: InputDecoration(
                 hintText: "Ingrese su contraseña",
                 hintStyle: TextStyles.quickRegularcambiante,
-
                 prefixIcon: const Icon(
                   Icons.lock,
                   color: AppColors.negro,
                   size: 20,
                 ),
-
                 suffixIcon: IconButton(
                   icon: Icon(
-                    ocultar
-                        ? Icons.visibility_off
-                        : Icons.visibility,
+                    ocultar ? Icons.visibility_off : Icons.visibility,
                     color: AppColors.negro,
                   ),
                   onPressed: () {
@@ -56,10 +49,8 @@ class _ContraseState extends State<Contrase> {
                     });
                   },
                 ),
-
                 filled: true,
                 fillColor: AppColors.letracampo,
-
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                   borderSide: BorderSide.none,

@@ -24,7 +24,6 @@ class MainApp extends StatelessWidget {
     final almacenamiento = TokenStorage();
 
     final recordarme = await almacenamiento.obtenerRecordarme();
-
     final accessToken = await almacenamiento.obtenerAccessToken();
 
     if (recordarme && accessToken != null) {
@@ -38,10 +37,8 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-
       home: FutureBuilder<String?>(
         future: verificarSesion(),
-
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Scaffold(
