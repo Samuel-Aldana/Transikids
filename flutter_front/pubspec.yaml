@@ -1,6 +1,6 @@
 name: flutter_application_1
 description: "iniciar sesion"
-publish_to: 'none'
+publish_to: "none"
 version: 0.1.0+1
 
 environment:
@@ -9,8 +9,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_map: ^8.3.1
   google_fonts: ^8.2.1
-
+  google_maps_flutter: ^2.18.0
+  http: ^1.6.0
+  latlong2: ^0.10.1
+  maplibre: ^0.2.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -18,5 +22,5 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  assets: 
+  assets:
     - assets/images/
