@@ -10,7 +10,9 @@ import 'servicios/almacenamiento/token_storage.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   runApp(const MainApp());
 }
@@ -22,7 +24,6 @@ class MainApp extends StatelessWidget {
     final almacenamiento = TokenStorage();
 
     final recordarme = await almacenamiento.obtenerRecordarme();
-
     final accessToken = await almacenamiento.obtenerAccessToken();
 
     if (recordarme && accessToken != null) {
@@ -36,20 +37,22 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-
       home: FutureBuilder<String?>(
         future: verificarSesion(),
-
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Scaffold(
               backgroundColor: AppColors.base,
-              body: Center(child: CircularProgressIndicator()),
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
             );
           }
 
           if (snapshot.data != null) {
-            return Padre(nombre: snapshot.data!);
+            return Padre(
+              nombre: snapshot.data!,
+            );
           }
 
           return const Scaffold(

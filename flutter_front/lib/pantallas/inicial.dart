@@ -18,25 +18,38 @@ class _InicialState extends State<Inicial> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: 60),
-        Logo(),
-        Ciudad(),
-        SizedBox(height: 90),
+        const SizedBox(height: 60),
+        const Logo(),
+        const Ciudad(),
+        const SizedBox(height: 90),
+
         Iniciars(
           texto: "Iniciar sesión",
           funcion: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const Datos()),
+              MaterialPageRoute(
+                builder: (context) => const Datos(),
+              ),
             );
           },
         ),
 
-        SizedBox(height: 20),
-        Registro(texto: "registrarse", funcion: () {}),
-        SizedBox(height: 10),
-        Recuperar(texto: "¿olvidaste tu contraseña?", funcion: () {}),
-        Spacer(),
+        const SizedBox(height: 20),
+
+        Registro(
+          texto: "registrarse",
+          funcion: () {},
+        ),
+
+        const SizedBox(height: 10),
+
+        Recuperar(
+          texto: "¿olvidaste tu contraseña?",
+          funcion: () {},
+        ),
+
+        const Spacer(),
       ],
     );
   }
