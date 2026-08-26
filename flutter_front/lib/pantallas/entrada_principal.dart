@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_application_1/features/tracking/presentation/page/tracking_page.dart';
 import 'package:flutter_application_1/bases/navegacion/app_bottom_navigation.dart';
 import 'package:flutter_application_1/pantallas/pantalla_temporal_uwu.dart';
+import 'package:flutter_application_1/pantallas/usuarios/padre/vistapadre.dart';
 
 class EntradaPrincipal extends StatefulWidget {
-  const EntradaPrincipal({super.key});
+  final String nombre;
+
+  const EntradaPrincipal({super.key, required this.nombre});
 
   @override
   State<EntradaPrincipal> createState() => _EntradaPrincipalState();
 }
 
 class _EntradaPrincipalState extends State<EntradaPrincipal> {
-  int currentIndex = 1;
+  int currentIndex = 0;
 
   void cambiarPagina(int index) {
     setState(() {
@@ -24,11 +28,11 @@ class _EntradaPrincipalState extends State<EntradaPrincipal> {
     return Scaffold(
       body: IndexedStack(
         index: currentIndex,
-        children: const [
-          PantallaTemporal(titulo: 'Inicio'),
-          TrackingPage(),
-          PantallaTemporal(titulo: 'Hijos'),
-          PantallaTemporal(titulo: 'Perfil'),
+        children: [
+          Padre(nombre: widget.nombre),
+          const TrackingPage(),
+          const PantallaTemporal(titulo: 'Hijos'),
+          const PantallaTemporal(titulo: 'Perfil'),
         ],
       ),
       bottomNavigationBar: AppBottomNavigation(

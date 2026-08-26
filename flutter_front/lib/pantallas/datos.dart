@@ -12,7 +12,7 @@ import 'package:flutter_application_1/bases/imagenes/logo.dart';
 import 'package:flutter_application_1/servicios/almacenamiento/token_storage.dart';
 import 'package:flutter_application_1/servicios/autenticacion/googleautenticacion.dart';
 import 'package:flutter_application_1/servicios/autenticacion/servicioautenticacion.dart';
-import 'package:flutter_application_1/pantallas/usuarios/padre/vistapadre.dart';
+import 'package:flutter_application_1/pantallas/entrada_principal.dart';
 
 import '../bases/imagenes/apple.dart';
 
@@ -75,7 +75,7 @@ class _DatosState extends State<Datos> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => Padre(nombre: respuesta.username),
+          builder: (context) => EntradaPrincipal(nombre: respuesta.username),
         ),
       );
     } catch (e) {
@@ -108,7 +108,9 @@ class _DatosState extends State<Datos> {
 
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => Padre(nombre: nombre)),
+        MaterialPageRoute(
+          builder: (context) => EntradaPrincipal(nombre: nombre),
+        ),
       );
     } catch (e) {
       if (!mounted) return;

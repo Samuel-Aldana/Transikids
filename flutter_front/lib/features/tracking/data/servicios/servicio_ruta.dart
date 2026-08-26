@@ -31,7 +31,7 @@ class RoutingService {
 
     final response = await _client.post(
       Uri.parse(
-        'https://api.openrouteservice.org/v2/directions/driving-car/geojson',
+        'https://api.heigit.org/openrouteservice/v2/directions/driving-car/geojson',
       ),
       headers: {'Authorization': _apiKey, 'Content-Type': 'application/json'},
       body: jsonEncode({'coordinates': coordinates}),
