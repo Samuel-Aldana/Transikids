@@ -3,15 +3,22 @@ import 'package:maplibre/maplibre.dart';
 
 import 'package:flutter_application_1/features/tracking/domain/entities/puntos_ruta.dart';
 import 'package:flutter_application_1/bases/colores/colores.dart';
+import 'package:flutter_application_1/features/tracking/domain/entities/paradas_bus.dart';
+import 'package:flutter_application_1/features/tracking/presentation/widgets/marcador_paradas.dart';
+import 'package:flutter_application_1/features/tracking/presentation/widgets/busesito.dart';
 
 class TrackingMap extends StatelessWidget {
   final void Function(MapController) onMapCreated;
   final List<RoutePoint> routePoints;
+  final List<RouteStop> stops;
+  final RoutePoint? busPosition;
 
   const TrackingMap({
     super.key,
     required this.onMapCreated,
     required this.routePoints,
+    required this.stops,
+    this.busPosition,
   });
 
   @override
@@ -38,6 +45,30 @@ class TrackingMap extends StatelessWidget {
                 width: 5,
               ),
             ],
+      children: [
+        WidgetLayer(
+          markers: [
+            ...stops.map((stop) {
+              final isSchool = stop.name == 'Colegio';
+
+              return Marker(
+                point: Position(stop.longitude, stop.latitude),
+                size: const Size(38, 38),
+                alignment: Alignment.bottomCenter,
+                child: StopMarker(label: '${stop.order}', isSchool: isSchool),
+              );
+            }),
+
+            if (busPosition != null)
+              Marker(
+                point: Position(busPosition!.longitude, busPosition!.latitude),
+                size: const Size(44, 44),
+                alignment: Alignment.center,
+                child: const BusMarker(),
+              ),
+          ],
+        ),
+      ],
     );
   }
 }

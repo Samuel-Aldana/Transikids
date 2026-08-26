@@ -33,7 +33,7 @@ class _InicialState extends State<Inicial> {
               ),
             );
           },
-          child: const Text('Tracker uWu'),
+          child: const Text('Pocoyo'),
         ),
         //uwu
         Iniciars(),
