@@ -1,30 +1,15 @@
-from flask import Flask, request
+from flask import Flask
+from src.config.firebase_config import db
+from src.routes.user_routes import user_bp
 
 app = Flask(__name__)
 
-@app.route("/")
-def inicio():
-    return "Backend funcionando correctamente"
+# Registrar la ruta de usuarios
+app.register_blueprint(user_bp)
 
-@app.route("/saludo")
-def saludo():
-    return "Hola desde mi API"
+@app.route('/')
+def index():
+    return {"status": "ok", "message": "API de Transitkids corriendo correctamente"}, 200
 
-@app.route("/users", methods=["GET"])
-def obtener_usuarios():
-    return {
-        "mensaje": "Lista de usuarios",
-        "usuarios": []
-    }
-
-@app.route("/users", methods=["POST"])
-def crear_usuario():
-    datos = request.get_json()
-
-    return {
-        "mensaje": "Usuario recibido correctamente",
-        "usuario": datos
-    }
-
-if __name__ == "__main__":
-    app.run(debug=True)
+if __name__ == '__main__':
+    app.run(debug=True, port=5000)
