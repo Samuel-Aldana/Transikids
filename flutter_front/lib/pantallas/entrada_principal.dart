@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import 'package:flutter_application_1/features/tracking/presentation/page/tracking_page.dart';
 import 'package:flutter_application_1/bases/navegacion/app_bottom_navigation.dart';
 import 'package:flutter_application_1/features/tracking/presentation/page/tracking_page.dart';
 import 'package:flutter_application_1/pantallas/pantalla_temporal_uwu.dart';
@@ -7,7 +9,7 @@ import 'package:flutter_application_1/pantallas/usuarios/padre/vistapadre.dart';
 class EntradaPrincipal extends StatefulWidget {
   final String nombre;
 
-  const EntradaPrincipal({super.key, this.nombre = 'Usuario'});
+  const EntradaPrincipal({super.key, required this.nombre});
 
   @override
   State<EntradaPrincipal> createState() => _EntradaPrincipalState();

@@ -5,14 +5,13 @@ import 'bases/colores/colores.dart';
 import 'firebase_options.dart';
 import 'pantallas/entrada_principal.dart';
 import 'pantallas/inicial.dart';
+import 'pantallas/entrada_principal.dart';
 import 'servicios/almacenamiento/token_storage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   runApp(const MainApp());
 }
@@ -43,16 +42,12 @@ class MainApp extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Scaffold(
               backgroundColor: AppColors.base,
-              body: Center(
-                child: CircularProgressIndicator(),
-              ),
+              body: Center(child: CircularProgressIndicator()),
             );
           }
 
           if (snapshot.data != null) {
-            return EntradaPrincipal(
-              nombre: snapshot.data!,
-            );
+            return EntradaPrincipal(nombre: snapshot.data!);
           }
 
           return const Scaffold(

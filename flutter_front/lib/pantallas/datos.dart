@@ -96,19 +96,11 @@ class _DatosState extends State<Datos> {
     } on FirebaseAuthException catch (e) {
       if (!mounted) return;
 
-      String mensaje = "Error al iniciar sesión";
-      if (e.code == 'user-not-found' || e.code == 'invalid-credential') {
-        mensaje = "Cédula/Correo o contraseña incorrectos";
-      } else if (e.code == 'wrong-password') {
-        mensaje = "Contraseña incorrecta";
-      } else if (e.code == 'invalid-email') {
-        mensaje = "El formato del usuario o correo no es válido";
-      } else if (e.code == 'too-many-requests') {
-        mensaje = "Muchos intentos fallidos. Intente más tarde.";
-      }
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(mensaje)),
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => EntradaPrincipal(nombre: respuesta.username),
+        ),
       );
     } catch (e) {
       if (!mounted) return;
@@ -141,8 +133,11 @@ class _DatosState extends State<Datos> {
     } catch (e) {
       if (!mounted) return;
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("No se pudo iniciar sesión con Google")),
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => EntradaPrincipal(nombre: nombre),
+        ),
       );
     }
   }
