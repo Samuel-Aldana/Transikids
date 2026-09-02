@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/bases/botones/google.dart';
 import 'package:flutter_application_1/bases/botones/ingresarcontr.dart';
@@ -12,7 +13,7 @@ import 'package:flutter_application_1/bases/imagenes/logo.dart';
 import 'package:flutter_application_1/servicios/almacenamiento/token_storage.dart';
 import 'package:flutter_application_1/servicios/autenticacion/googleautenticacion.dart';
 import 'package:flutter_application_1/servicios/autenticacion/servicioautenticacion.dart';
-import 'package:flutter_application_1/pantallas/usuarios/padre/vistapadre.dart';
+import 'package:flutter_application_1/pantallas/entrada_principal.dart';
 
 import '../bases/imagenes/apple.dart';
 
@@ -34,6 +35,28 @@ class _DatosState extends State<Datos> {
 
   final GoogleAutenticacion googleAutenticacion = GoogleAutenticacion();
 
+  void _irAEntradaPrincipal(String nombre) {
+    if (!mounted) return;
+
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EntradaPrincipal(nombre: nombre),
+      ),
+      (route) => false,
+    );
+  }
+
+  Future<void> _guardarSesionFirebase(User user, String nombre) async {
+    final token = await user.getIdToken();
+    final almacenamiento = TokenStorage();
+
+    if (token != null) {
+      await almacenamiento.guardarAccessToken(token);
+    }
+    await almacenamiento.guardarNombre(nombre);
+  }
+
   @override
   void dispose() {
     usuarioController.dispose();
@@ -41,15 +64,17 @@ class _DatosState extends State<Datos> {
     super.dispose();
   }
 
-  // INICIAR SESIÓN CON USUARIO Y CONTRASEÑA
+  // INICIAR SESIÓN CON USUARIO (CÉDULA / CORREO) Y CONTRASEÑA
   Future<void> iniciarSesion() async {
-    if (usuarioController.text.trim().isEmpty ||
-        contrasenaController.text.trim().isEmpty) {
+    final identificador = usuarioController.text.trim();
+    final contrasena = contrasenaController.text;
+
+    if (identificador.isEmpty || contrasena.isEmpty) {
       if (!mounted) return;
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text("Por favor, ingresa tu usuario y contraseña"),
+          content: Text("Por favor, ingresa tu cédula/correo y contraseña"),
         ),
       );
 
@@ -57,32 +82,39 @@ class _DatosState extends State<Datos> {
     }
 
     try {
-      final respuesta = await autenticacion.iniciarSesion(
-        usuarioController.text.trim(),
-        contrasenaController.text,
+      final resultado = await autenticacion.iniciarSesion(
+        identificador,
+        contrasena,
       );
 
-      final almacenamiento = TokenStorage();
+      final nombre = resultado.nombre;
 
-      // Guardar Recordarme
+      final almacenamiento = TokenStorage();
       await almacenamiento.guardarRecordarme(recordarme);
 
-      // Guardar nombre
-      await almacenamiento.guardarNombre(respuesta.username);
-
+      _irAEntradaPrincipal(nombre);
+    } on FirebaseAuthException catch (e) {
       if (!mounted) return;
 
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => Padre(nombre: respuesta.username),
-        ),
+      String mensaje = "Error al iniciar sesión";
+      if (e.code == 'user-not-found' || e.code == 'invalid-credential') {
+        mensaje = "Cédula/Correo o contraseña incorrectos";
+      } else if (e.code == 'wrong-password') {
+        mensaje = "Contraseña incorrecta";
+      } else if (e.code == 'invalid-email') {
+        mensaje = "El formato del usuario o correo no es válido";
+      } else if (e.code == 'too-many-requests') {
+        mensaje = "Muchos intentos fallidos. Intente más tarde.";
+      }
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(mensaje)),
       );
     } catch (e) {
       if (!mounted) return;
 
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Usuario o contraseña incorrectos")),
+        SnackBar(content: Text("No se pudo iniciar sesión: $e")),
       );
     }
   }
@@ -98,23 +130,45 @@ class _DatosState extends State<Datos> {
 
       final nombre = usuario.user?.displayName ?? "Usuario";
 
+      final usuarioFirebase = usuario.user;
+      if (usuarioFirebase != null) {
+        await _guardarSesionFirebase(usuarioFirebase, nombre);
+      }
       final almacenamiento = TokenStorage();
-
-      await almacenamiento.guardarNombre(nombre);
-
       await almacenamiento.guardarRecordarme(true);
 
-      if (!mounted) return;
-
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => Padre(nombre: nombre)),
-      );
+      _irAEntradaPrincipal(nombre);
     } catch (e) {
       if (!mounted) return;
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("No se pudo iniciar sesión con Google")),
+      );
+    }
+  }
+
+  // INICIAR SESIÓN CON APPLE
+  Future<void> iniciarSesionApple() async {
+    try {
+      final appleProvider = AppleAuthProvider();
+      final userCredential =
+          await FirebaseAuth.instance.signInWithProvider(appleProvider);
+
+      final user = userCredential.user;
+      final nombre = user?.displayName ?? "Usuario Apple";
+
+      if (user != null) {
+        await _guardarSesionFirebase(user, nombre);
+      }
+      final almacenamiento = TokenStorage();
+      await almacenamiento.guardarRecordarme(true);
+
+      _irAEntradaPrincipal(nombre);
+    } catch (e) {
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("No se pudo iniciar sesión con Apple")),
       );
     }
   }
@@ -202,7 +256,7 @@ class _DatosState extends State<Datos> {
                       child: BotonGoogle(
                         texto: "Apple",
                         imagen: Apple(),
-                        funcion: () {},
+                        funcion: iniciarSesionApple,
                       ),
                     ),
                   ],

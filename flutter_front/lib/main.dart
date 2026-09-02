@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 import 'bases/colores/colores.dart';
 import 'firebase_options.dart';
+import 'pantallas/entrada_principal.dart';
 import 'pantallas/inicial.dart';
-import 'pantallas/usuarios/padre/vistapadre.dart';
 import 'servicios/almacenamiento/token_storage.dart';
 
 void main() async {
@@ -50,7 +50,7 @@ class MainApp extends StatelessWidget {
           }
 
           if (snapshot.data != null) {
-            return Padre(
+            return EntradaPrincipal(
               nombre: snapshot.data!,
             );
           }

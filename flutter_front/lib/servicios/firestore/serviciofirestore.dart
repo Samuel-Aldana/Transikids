@@ -28,4 +28,82 @@ class ServicioFirestore {
       'fechaRegistro': FieldValue.serverTimestamp(),
     }, SetOptions(merge: true));
   }
+
+  Future<String?> obtenerCorreoPorCedula(String cedula) async {
+    // Buscar por campo 'cedula'
+    final queryCedula = await firestore
+        .collection('usuarios')
+        .where('cedula', isEqualTo: cedula)
+        .limit(1)
+        .get();
+
+    if (queryCedula.docs.isNotEmpty) {
+      final data = queryCedula.docs.first.data();
+      return data['correo'] as String? ?? data['email'] as String?;
+    }
+
+    // Buscar por campo 'documento'
+    final queryDoc = await firestore
+        .collection('usuarios')
+        .where('documento', isEqualTo: cedula)
+        .limit(1)
+        .get();
+
+    if (queryDoc.docs.isNotEmpty) {
+      final data = queryDoc.docs.first.data();
+      return data['correo'] as String? ?? data['email'] as String?;
+    }
+
+    return null;
+  }
+
+  Future<Map<String, dynamic>?> buscarUsuarioFirestore(
+      String identificador) async {
+    // 1. Buscar por campo 'cedula'
+    var query = await firestore
+        .collection('usuarios')
+        .where('cedula', isEqualTo: identificador)
+        .limit(1)
+        .get();
+
+    if (query.docs.isNotEmpty) {
+      return {'id': query.docs.first.id, ...query.docs.first.data()};
+    }
+
+    // 2. Buscar por campo 'documento'
+    query = await firestore
+        .collection('usuarios')
+        .where('documento', isEqualTo: identificador)
+        .limit(1)
+        .get();
+
+    if (query.docs.isNotEmpty) {
+      return {'id': query.docs.first.id, ...query.docs.first.data()};
+    }
+
+    // 3. Buscar por campo 'correo'
+    query = await firestore
+        .collection('usuarios')
+        .where('correo', isEqualTo: identificador)
+        .limit(1)
+        .get();
+
+    if (query.docs.isNotEmpty) {
+      return {'id': query.docs.first.id, ...query.docs.first.data()};
+    }
+
+    // 4. Buscar por campo 'email'
+    query = await firestore
+        .collection('usuarios')
+        .where('email', isEqualTo: identificador)
+        .limit(1)
+        .get();
+
+    if (query.docs.isNotEmpty) {
+      return {'id': query.docs.first.id, ...query.docs.first.data()};
+    }
+
+    return null;
+  }
 }
+
