@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_application_1/features/tracking/presentation/page/tracking_page.dart';
 import 'package:flutter_application_1/bases/navegacion/app_bottom_navigation.dart';
+import 'package:flutter_application_1/features/tracking/presentation/page/tracking_page.dart';
 import 'package:flutter_application_1/pantallas/pantalla_temporal_uwu.dart';
 import 'package:flutter_application_1/pantallas/usuarios/padre/vistapadre.dart';
 
