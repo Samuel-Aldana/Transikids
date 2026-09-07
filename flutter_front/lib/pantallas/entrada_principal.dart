@@ -36,6 +36,7 @@ class _EntradaPrincipalState extends State<EntradaPrincipal> {
           ), //cambia vista a tracking
           const TrackingPage(),
           const Hijos(),
+          //Vista de hijos
           const PantallaTemporal(titulo: 'Perfil'),
         ],
       ),
