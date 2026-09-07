@@ -14,4 +14,10 @@ class AppColors {
   static const Color ruta = Color(0xFF181C20);
   static const Color camino = Color(0xFF006E2C);
   static const Color btncamino = Color(0xFFE6F1EA);
+
+
+
+  static const Color btnazul = Color(0xFFEFF6FF);      // Fondo suave de "Ver rutas"
+  static const Color alerta = Color(0xFFD97706);       // Icono de "Términos y condiciones"
+  static const Color btnalerta = Color(0xFFFEF3C7);
 }
