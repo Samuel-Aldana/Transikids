@@ -4,6 +4,7 @@ import 'package:flutter_application_1/features/tracking/presentation/page/tracki
 import 'package:flutter_application_1/bases/navegacion/app_bottom_navigation.dart';
 import 'package:flutter_application_1/pantallas/pantalla_temporal_uwu.dart';
 import 'package:flutter_application_1/pantallas/usuarios/padre/vistapadre.dart';
+import 'package:flutter_application_1/pantallas/usuarios/padre/pantalla_ruta.dart';
 
 class EntradaPrincipal extends StatefulWidget {
   final String nombre;
@@ -13,6 +14,7 @@ class EntradaPrincipal extends StatefulWidget {
   @override
   State<EntradaPrincipal> createState() => _EntradaPrincipalState();
 }
+
 class _EntradaPrincipalState extends State<EntradaPrincipal> {
   int currentIndex = 0;
 
@@ -28,10 +30,12 @@ class _EntradaPrincipalState extends State<EntradaPrincipal> {
       body: IndexedStack(
         index: currentIndex,
         children: [
-          Padre(nombre: widget.nombre, 
-          onIrATracking: () => cambiarPagina(1)),//cambia vista a tracking
+          Padre(
+            nombre: widget.nombre,
+            onIrATracking: () => cambiarPagina(1),
+          ), //cambia vista a tracking
           const TrackingPage(),
-          const PantallaTemporal(titulo: 'Hijos'),
+          const Hijos(),
           const PantallaTemporal(titulo: 'Perfil'),
         ],
       ),

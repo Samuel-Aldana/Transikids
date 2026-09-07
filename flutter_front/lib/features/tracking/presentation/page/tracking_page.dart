@@ -170,7 +170,7 @@ class _TrackingPageState extends State<TrackingPage> {
         timer.cancel();
         return;
       }
-
+      print(busTimer);
       if (busPointIndex >= routePoints.length - 1) {
         setState(() {
           busPosition = routePoints.last;
