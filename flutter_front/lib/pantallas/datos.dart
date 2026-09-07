@@ -63,8 +63,7 @@ class _DatosState extends State<Datos> {
     contrasenaController.dispose();
     super.dispose();
   }
-
-  // INICIAR SESIÓN CON USUARIO (CÉDULA / CORREO) Y CONTRASEÑA
+//inicio de sesion
   Future<void> iniciarSesion() async {
     final identificador = usuarioController.text.trim();
     final contrasena = contrasenaController.text;
@@ -96,11 +95,8 @@ class _DatosState extends State<Datos> {
     } on FirebaseAuthException catch (e) {
       if (!mounted) return;
 
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => EntradaPrincipal(nombre: respuesta.username),
-        ),
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(e.message ?? "Error de autenticación con Firebase")),
       );
     } catch (e) {
       if (!mounted) return;
@@ -110,8 +106,7 @@ class _DatosState extends State<Datos> {
       );
     }
   }
-
-  // INICIAR SESIÓN CON GOOGLE
+//Google
   Future<void> iniciarSesionGoogle() async {
     try {
       final usuario = await googleAutenticacion.iniciarSesionConGoogle();
@@ -133,16 +128,12 @@ class _DatosState extends State<Datos> {
     } catch (e) {
       if (!mounted) return;
 
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => EntradaPrincipal(nombre: nombre),
-        ),
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("No se pudo iniciar sesión con Google")),
       );
     }
   }
-
-  // INICIAR SESIÓN CON APPLE
+//apple
   Future<void> iniciarSesionApple() async {
     try {
       final appleProvider = AppleAuthProvider();

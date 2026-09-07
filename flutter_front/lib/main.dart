@@ -1,11 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-
 import 'bases/colores/colores.dart';
 import 'firebase_options.dart';
 import 'pantallas/entrada_principal.dart';
 import 'pantallas/inicial.dart';
-import 'pantallas/entrada_principal.dart';
 import 'servicios/almacenamiento/token_storage.dart';
 
 void main() async {
